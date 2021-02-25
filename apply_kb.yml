@@ -1,0 +1,18 @@
+---
+- name: Apply CVE-2021-21972  Workaround
+  hosts: "{{ env | default('all') }}"
+  gather_facts: no
+  become: no
+
+  tasks:
+  - name: set xml config
+    lineinfile:
+      path: /etc/vmware/vsphere-ui/compatibility-matrix.xml
+      insertafter: <pluginsCompatibility>
+      line: '    <PluginPackage id="com.vmware.vrops.install" status="incompatible"/>'
+      backup: yes
+    notify: restart vsphere-ui
+
+  handlers:
+    - name: restart vsphere-ui
+      command: "service-control --restart vsphere-ui"
