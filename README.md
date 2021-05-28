@@ -1,6 +1,6 @@
-# vmware-kb82374 Workaround for CVE-2021-21972 and CVE-2021-21973
+# vmware-kb83829 Workaround for CVE-2021-21972, CVE-2021-21973, CVE-2021-21985, CVE-2021-21986 
 ## Description
-Sets the vRops HTML5 vCenter plugin to incomptatable as a work around per the KB. If you want the knowledge base articles, see the [Reference Section](#Reference) 
+Disable and enables vulernble. HTML5 vCenter plugin to incomptatable as a work around per the KB. If you want the knowledge base articles, see the [Reference Section](#Reference) 
 ### The Play's workflow 
 1. SSH's in to the VC and sets the vrops plugin to incompatible. 
 2. Restarts the vsphere-ui service if a change was made
@@ -11,6 +11,8 @@ Sets the vRops HTML5 vCenter plugin to incomptatable as a work around per the KB
 >- You're running code downloaded from the Internet, read the code first to get that warm and fuzzy feeling. 
 >- I'm suggesting you generate and copy ssh keys to your vc. Understand the risks and mitigation before you do this.
 >- Beyond this point, there be dragons. Proceed at your own risk.
+>- ### DO NOT ENABLE THE PLUGS UNTIL YOU PATCH!
+
 >#### Notes
 > This play only works with the VCSA appliance. Windows based vCenters are not supported.  
 
@@ -94,6 +96,9 @@ Just a simple `ansible-playbook -k apply_kb.yml` is all you need. The flag `-k` 
 #### With ssh keys
 Call `ansible-playbook apply_kb.yml` without the `-k`.
 
+#### Re-Enabling the plugins
+First, PATCH YOUR VCENTERS. Then just use the ```remove_kb.yml``` with the exact same options as the apply_kb play.
+
 ### Validating the change
 Since this is barest of bones play. Please validate the play with the steps outlined [vmware kb 82374](https://kb.vmware.com/s/article/82374).
 
@@ -112,11 +117,16 @@ Since this is barest of bones play. Please validate the play with the steps outl
 To use the play in Tower, this play just needs a standard machine credential. The vcenters.ini file is your inventory file for the project.
 
 ## Reference
+[vmware kb 83829](https://kb.vmware.com/s/article/82374)  
 [vmware kb 82374](https://kb.vmware.com/s/article/82374)  
 [vmware kb 76719](https://kb.vmware.com/s/article/76719)  
 [vmware kb 2107727](https://kb.vmware.com/s/article/2107727)  
+[VMSA-2021-0010](https://www.vmware.com/security/advisories/VMSA-2021-0010.html)
+
 [Ansible Installation Guide](https://docs.ansible.com/ansible/latest/installation_guide/index.html)  
 [Vagrant Install Guide](https://www.vagrantup.com/intro/getting-started/install.html)  
+
+
 
 ## Legal
 I am in no away affiliated with VMware, nor did I write the fix. I just wrote an ansible play to apply it at scale. Use this as your own peril with good backups and snapshots. Don't blame me if this burns down your vcenter environment, you were warned. I take no responsibility or liability.
