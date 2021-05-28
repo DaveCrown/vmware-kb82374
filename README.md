@@ -116,6 +116,15 @@ Since this is barest of bones play. Please validate the play with the steps outl
 ### Ansible Tower
 To use the play in Tower, this play just needs a standard machine credential. The vcenters.ini file is your inventory file for the project.
 
+
+## Plugins Managed
+| Name | Plugin ID |
+| --- | --- |
+| vRops | ```com.vmware.vrops.install``` |
+| vSAN H5 Client Plugin	| ```com.vmware.vsphere.client.h5vsan``` |
+Site Recovery | ```com.vmware.vrUi``` |
+| vSphere Life-cycle Manager | ```com.vmware.vum.client``` |
+| Cloud Director Availability | ```com.vmware.h4.vsphere.client``` |
 ## Reference
 [vmware kb 83829](https://kb.vmware.com/s/article/82374)  
 [vmware kb 82374](https://kb.vmware.com/s/article/82374)  

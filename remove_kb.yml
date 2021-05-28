@@ -16,6 +16,17 @@
       loop_var: plugin
     notify: restart vsphere-ui service
 
+  - name: disable {{ plugin.name }} plugin 
+    lineinfile:
+      path: /etc/vmware/vsphere-ui/compatibility-matrix.xml
+      line: '    <PluginPackage id="{{ plugin.id }}" status="incompatible"/>'
+      state: absent
+      backup: yes
+    loop: "{{ plugins | dict2items(key_name='name', value_name='id') }}"
+    loop_control:
+      loop_var: plugin
+    notify: restart vsphere-ui service
+
   handlers:
     - name: restart vsphere-ui service
       command: "service-control --restart vsphere-ui"
