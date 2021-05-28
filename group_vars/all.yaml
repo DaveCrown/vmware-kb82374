@@ -1,2 +1,9 @@
 ---
 ansible_ssh_user: root
+
+plugins:
+  vrops: com.vmware.vrops.install
+  vSan: com.vmware.vsphere.client.h5vsan
+  SRM: com.vmware.vrUi
+  vLCM: com.vmware.vum.client
+  vCD: com.vmware.h4.vsphere.client
